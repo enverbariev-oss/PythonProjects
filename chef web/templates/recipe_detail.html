@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="mb-4">
+        <a href="/" class="btn btn-outline-secondary">← Назад в меню</a>
+    </div>
+
+    <div class="card shadow-lg p-4 p-md-5 border-0 rounded-4">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1 class="display-5 fw-bold mb-3">{{ recipe.title }}</h1>
+                <p class="text-muted fs-5 mb-4">{{ recipe.description }}</p>
+
+                {% if recipe.video_url %}
+                <div class="ratio ratio-16x9 mb-4 shadow rounded-3 overflow-hidden">
+                    <iframe src="{{ recipe.video_url.replace('watch?v=', 'embed/') }}" allowfullscreen></iframe>
+                </div>
+                {% endif %}
+
+                <h3 class="fw-bold mt-5 mb-3">👨‍🍳 Инструкция</h3>
+                <div class="fs-5" style="white-space: pre-wrap; line-height: 1.8;">{{ recipe.instructions }}</div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="p-4 rounded-4 shadow-sm sticky-top" style="top: 100px; background: #fff9f0; border-left: 5px solid #ffc107;">
+                    <h4 class="fw-bold mb-3">🛒 Ингредиенты</h4>
+                    <ul class="list-unstyled fs-5">
+                        {% for item in recipe.ingredients.split('\n') %}
+                            {% if item.strip() %}
+                            <li class="mb-2">✅ {{ item }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

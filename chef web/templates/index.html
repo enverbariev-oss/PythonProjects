@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1556910103-1c02745a8727');
+        background-size: cover;
+        color: white;
+        padding: 100px 0;
+    }
+</style>
+
+<header class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Идеальное блюдо на сегодня</h1>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="moodInput" class="form-control" placeholder="Например: мясо, паста">
+                    <button class="btn btn-warning fw-bold" type="button" onclick="getAISuggestion()">Спросить ИИ</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="aiResponse" class="alert alert-success mt-3 d-none text-start w-50 mx-auto" role="alert">
+            <h4 class="alert-heading" id="aiDishName"></h4>
+            <p id="aiDishDesc"></p>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0 small" id="aiMessage"></p>
+                <a href="#" id="aiGoToRecipe" class="btn btn-success btn-sm fw-bold">Приготовить!</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container mt-5">
+    <div class="row g-4">
+        {% for cat in all_categories %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="{{ cat.image_url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ cat.name }}</h5>
+                    <a href="{{ url_for('category_detail', category_id=cat.id) }}" class="btn btn-warning w-100">Открыть меню</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

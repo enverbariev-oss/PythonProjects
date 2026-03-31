@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4 text-center fw-bold">{{ category.name }} кухня</h2>
+
+<div class="row g-4">
+    {% for recipe in recipes %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <img src="{{ recipe.image_url }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">{{ recipe.title }}</h5>
+                <p class="card-text text-muted">{{ recipe.description }}</p>
+                <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary w-100">
+                    Смотреть рецепт
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
